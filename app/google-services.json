@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "591020011643",
+    "firebase_url": "https://streamingapp-ed70a-default-rtdb.firebaseio.com",
+    "project_id": "streamingapp-ed70a",
+    "storage_bucket": "streamingapp-ed70a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:591020011643:android:3c96c1e05828133bfd32de",
+        "android_client_info": {
+          "package_name": "com.stream.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "591020011643-2g5sjli3cu8gn86ngko443dre2itcrnm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFe11jsPMLWSjIiPtHEI8QuXR3IH8rKDU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "591020011643-2g5sjli3cu8gn86ngko443dre2itcrnm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:591020011643:android:2c3964f9e465bf18fd32de",
+        "android_client_info": {
+          "package_name": "com.example.radiokaya"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "591020011643-2g5sjli3cu8gn86ngko443dre2itcrnm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFe11jsPMLWSjIiPtHEI8QuXR3IH8rKDU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "591020011643-2g5sjli3cu8gn86ngko443dre2itcrnm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:591020011643:android:ac775774d639d3d0fd32de",
+        "android_client_info": {
+          "package_name": "com.example.streamingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "591020011643-2g5sjli3cu8gn86ngko443dre2itcrnm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFe11jsPMLWSjIiPtHEI8QuXR3IH8rKDU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "591020011643-2g5sjli3cu8gn86ngko443dre2itcrnm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

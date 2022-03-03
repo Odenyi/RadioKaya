@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/call"
+            android:icon="@drawable/call"
+            android:title="@string/call" />
+
+        <item
+            android:id="@+id/sms"
+            android:icon="@drawable/sms"
+            android:title="@string/message_us" />
+    </group>
+
+    <item android:title="Visit our social media platforms">
+        <menu>
+            <item
+                android:id="@+id/website"
+                android:icon="@drawable/website"
+                android:title="@string/visit_our_website" />
+            <item
+
+                android:id="@+id/facebook"
+                android:icon="@drawable/facebook"
+                android:title="@string/Facebook" />
+            <item
+                android:id="@+id/twitter"
+                android:icon="@drawable/twitter"
+                android:title="@string/Twitter" />
+            <item
+                android:id="@+id/instagram"
+                android:icon="@drawable/instagram"
+                android:title="@string/Instagram" />
+
+            <item
+                android:id="@+id/youtube"
+                android:icon="@drawable/youtube"
+                android:title="@string/Youtube" />
+        </menu>
+    </item>
+
+
+    <item android:title="@string/communicate">
+        <menu>
+            <item
+                android:id="@+id/share"
+                android:icon="@drawable/share"
+                android:title="@string/share" />
+
+        </menu>
+    </item>
+</menu>
