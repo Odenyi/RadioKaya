@@ -6,15 +6,20 @@
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/MyApplication2/app/src/main/res/layout/account_login_activity.xml" value="0.1" />
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/MyApplication2/app/src/main/res/layout/setnotification.xml" value="0.1" />
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/MyApplication2/app/src/main/res/menu/menu.xml" value="0.1" />
+        <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/drawable-v19/ic_launcher_background.xml" value="0.1" />
+        <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/drawable-v19/pause_icon.xml" value="0.1" />
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/drawable-v24/call.xml" value="0.24166666666666667" />
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/drawable-v24/ic_launcher_background.xml" value="0.24166666666666667" />
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.234375" />
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/drawable-v24/notify.xml" value="0.24166666666666667" />
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/drawable-v24/pause_icon.xml" value="0.1" />
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/drawable-v24/play_icon.xml" value="0.24166666666666667" />
+        <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/drawable-v24/rate.xml" value="0.1" />
+        <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/drawable-v24/sms.xml" value="0.1" />
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/drawable/call.xml" value="0.11018518518518519" />
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/drawable/email.xml" value="0.1" />
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/drawable/ic_launcher_background.xml" value="0.24166666666666667" />
+        <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/drawable/notify.xml" value="0.23794871794871794" />
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/drawable/pause.xml" value="0.24444444444444444" />
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/drawable/pause_icon.xml" value="0.24444444444444444" />
@@ -35,7 +40,7 @@
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/layout/activity_register.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/layout/activity_showactivity.xml" value="0.1" />
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/layout/activity_splash.xml" value="0.22552083333333334" />
-        <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/layout/content_main.xml" value="0.15" />
+        <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/layout/content_main.xml" value="0.1" />
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/layout/drawer_toolbar.xml" value="0.19479166666666667" />
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/layout/drawerheader.xml" value="0.19479166666666667" />
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/layout/empty_fragment.xml" value="0.19479166666666667" />
@@ -49,6 +54,9 @@
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/menu/bottom_nav_menu.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/menu/drawer_menu.xml" value="0.1" />
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/menu/menu.xml" value="0.25" />
+        <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/mipmap-anydpi-v26/ic_laucher.xml" value="0.1" />
+        <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/mipmap-anydpi-v26/ic_laucher1.xml" value="0.1" />
+        <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/mipmap-anydpi-v26/ic_laucher_round.xml" value="0.1" />
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.24166666666666667" />
         <entry key="..\:/Users/BRIAN/AndroidStudioProjects/RadioKayaproject/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.24166666666666667" />
       </map>

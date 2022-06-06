@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.stream.myapplication.RadioStream"
+    tools:context="com.livestream.myapplication.RadioStream"
     tools:openDrawer="start">
 
     <LinearLayout
@@ -38,7 +38,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/drawerheader"
-        app:menu="@menu/drawer_menu" />
+        app:menu="@menu/drawer_menu"
+       />
 
 
 

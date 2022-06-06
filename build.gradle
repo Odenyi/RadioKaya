@@ -6,6 +6,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
+
         classpath "com.android.tools.build:gradle:7.0.3"
         // Add the following line:
         classpath 'com.google.gms:google-services:4.3.10'  // Google Services plugin

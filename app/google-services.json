@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:591020011643:android:3c96c1e05828133bfd32de",
         "android_client_info": {
-          "package_name": "com.stream.myapplication"
+          "package_name": "com.livestream.myapplication.RadioStream"
         }
       },
       "oauth_client": [

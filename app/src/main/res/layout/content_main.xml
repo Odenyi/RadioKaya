@@ -21,19 +21,12 @@
             android:id="@+id/flipper">
 
             <ImageView
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
                 android:adjustViewBounds="false"
-                android:src="@drawable/kaya12" />
+                android:src="@drawable/kaya" />
 
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:adjustViewBounds="false"
-                android:src="@drawable/kayak" />
 
             <ImageView
                 android:layout_width="match_parent"
@@ -41,6 +34,14 @@
                 android:layout_gravity="top"
                 android:adjustViewBounds="false"
                 android:src="@drawable/kayae" />
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:adjustViewBounds="false"
+                android:src="@drawable/kaya12" />
 
             <ImageView
                 android:layout_width="match_parent"
@@ -54,21 +55,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
                 android:adjustViewBounds="false"
-                android:src="@drawable/kaya" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:adjustViewBounds="false"
-                android:src="@drawable/kayag" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:adjustViewBounds="false"
                 android:src="@drawable/kayah" />
+
+
 
         </ViewFlipper>
     </LinearLayout>
