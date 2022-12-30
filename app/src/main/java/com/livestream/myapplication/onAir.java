@@ -57,7 +57,19 @@ public class onAir extends Fragment {
         return v;
 
     }
-
+//
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        handler.postDelayed( runnable = new Runnable() {
+//            public void run() {
+//                //do something
+//                onAirrecylerview();
+//
+//                handler.postDelayed(runnable, delay);
+//            }
+//        }, delay);
+//    }
 
     @Override
     public void onPause() {

@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.content.IntentFilter;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 
 import android.net.ConnectivityManager;
@@ -16,17 +17,22 @@ import android.net.Uri;
 
 import android.os.Bundle;
 
+import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -36,6 +42,20 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.InstallState;
+import com.google.android.play.core.install.InstallStateUpdatedListener;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.InstallStatus;
+import com.google.android.play.core.install.model.UpdateAvailability;
+import com.google.android.play.core.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.livestream.myapplication.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -43,10 +63,13 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import jp.wasabeef.picasso.transformations.CropTransformation;
 
 
 public class RadioStream extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -71,6 +94,10 @@ public class RadioStream extends AppCompatActivity implements NavigationView.OnN
 
     private AlarmManagerBroadcastReceiver alarm;
 
+    //auto update app
+    private AppUpdateManager mupdatemanager;
+    private static final int RC_APP_UPDATE = 100;
+
     //Settings
     Settings settings = new Settings();
 
@@ -82,9 +109,19 @@ public class RadioStream extends AppCompatActivity implements NavigationView.OnN
     private ViewPager2 pager2;
     private vpAdapter adapter;
 
+    private ViewFlipper viewFlipper;
+    private Query images = db.getReference().child("uploads").limitToLast(20);
+    private List<upload> slideLists;
+    //images to display when there is not database image
+    int gallery_grid_Images[]={R.drawable.kayalogo2radio
+
+    };
+
     // Progress dialogue and broadcast receiver variables
     boolean mBufferBroadcastIsRegistered;
     private ProgressDialog pdBuff = null;
+
+
 
 
 
@@ -96,10 +133,39 @@ public class RadioStream extends AppCompatActivity implements NavigationView.OnN
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_radio_stream);
+        //auto update
+        mupdatemanager = AppUpdateManagerFactory.create(this);
+        mupdatemanager.getAppUpdateInfo().addOnSuccessListener(new OnSuccessListener<AppUpdateInfo>() {
+            @Override
+            public void onSuccess(AppUpdateInfo result) {
+                if(result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && result.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)){
+                    try {
+                        mupdatemanager.startUpdateFlowForResult(result,AppUpdateType.IMMEDIATE,RadioStream.this,RC_APP_UPDATE);
+                    } catch (IntentSender.SendIntentException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+//        mupdatemanager.registerListener(installStateUpdatedListener);
+
+        viewFlipper = findViewById(R.id.flipper);
+        //ended here
+        toolbar =(Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Radio Kaya 93.1 FM");
+        navigationView = (NavigationView) findViewById(R.id.nested);
+        navigationView.setItemIconTintList(null);
+        navigationView.setNavigationItemSelectedListener(this);
+        mAuth = FirebaseAuth.getInstance();
+        buttomnav =(BottomNavigationView) findViewById(R.id.navigation);
+
+        playButton =(Button) findViewById(R.id.PlayButton);
 
 
          //checks comnectivityy first
         checkConnectivity();
+        slideLists = new ArrayList<>();
 
 
             mPermissionResultLauncher=registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
@@ -128,17 +194,9 @@ public class RadioStream extends AppCompatActivity implements NavigationView.OnN
 
 
 
-        //ended here
-        toolbar =(Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Radio Kaya 93.1 FM");
-        navigationView = (NavigationView) findViewById(R.id.nested);
-        navigationView.setItemIconTintList(null);
-        navigationView.setNavigationItemSelectedListener(this);
-        mAuth = FirebaseAuth.getInstance();
-        buttomnav =(BottomNavigationView) findViewById(R.id.navigation);
 
-        playButton =(Button) findViewById(R.id.PlayButton);
+
+
 
 
         // TAB LAYOUT  STARTS HERE
@@ -336,6 +394,23 @@ public class RadioStream extends AppCompatActivity implements NavigationView.OnN
     // -- onResume register broadcast receiver. To improve, retrieve saved screen data ---
     @Override
     protected void onResume() {
+//        get app update
+        mupdatemanager.getAppUpdateInfo().addOnSuccessListener(new OnSuccessListener<AppUpdateInfo>() {
+            @Override
+            public void onSuccess(AppUpdateInfo result) {
+                if(result.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS && result.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)){
+                    try {
+                        mupdatemanager.startUpdateFlowForResult(result,AppUpdateType.IMMEDIATE,RadioStream.this,RC_APP_UPDATE);
+                    } catch (IntentSender.SendIntentException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        //fetch data from db
+        usingFirebaseDatabase();
+
         // Register broadcast receiver
         if (!mBufferBroadcastIsRegistered) {
             registerReceiver(broadcastBufferReceiver, new IntentFilter(
@@ -355,16 +430,22 @@ public class RadioStream extends AppCompatActivity implements NavigationView.OnN
         }
         super.onPause();
     }
-    private void checkConnectivity() {
+    private Boolean checkConnectivity() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         if (cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
                 .isConnectedOrConnecting()
                 || cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
                 .isConnectedOrConnecting())
-            isOnline = true;
+            return isOnline = true;
         else
-            isOnline = false;
+            for(int i=0;i<gallery_grid_Images.length;i++)
+            {
+                //  This will create dynamic image view and add them to ViewFlipper
+                setFlipperImage(gallery_grid_Images[i]);
+            }
+
+        return isOnline = false;
     }
 
 
@@ -443,6 +524,80 @@ public class RadioStream extends AppCompatActivity implements NavigationView.OnN
         return true;
     }
 
+
+    //    show data in flipper
+    private void usingFirebaseDatabase() {
+        images
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            slideLists.clear();
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                upload model = snapshot.getValue(upload.class);
+
+                                slideLists.add(model);
+                            }
+
+                            usingFirebaseImages(slideLists);
+                        } else {
+                            for(int i=0;i<gallery_grid_Images.length;i++)
+                            {
+                                //  This will create dynamic image view and add them to ViewFlipper
+                                setFlipperImage(gallery_grid_Images[i]);
+                            }
+
+                            Toast.makeText(RadioStream.this, "No images in firebase", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Toast.makeText(RadioStream.this, "NO images found \n" + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+    }
+
+
+    //Load data image when offline
+    private void setFlipperImage(int res) {
+        Log.i("Set Filpper Called", res+"");
+        ImageView image = new ImageView(getApplicationContext());
+        image.setBackgroundResource(res);
+        viewFlipper.addView(image);
+    }
+
+    private void usingFirebaseImages(List<upload> slideLists) {
+        for (int i = 0; i < slideLists.size(); i++) {
+            String downloadImageUrl = slideLists.get(i).getImageUrl();
+            flipImages(downloadImageUrl);
+        }
+    }
+
+    public void flipImages(String imageUrl) {
+        ImageView imageView = new ImageView(this);
+
+        Picasso.get()
+                .load(imageUrl)
+
+                .centerCrop(Gravity.TOP)
+                .resize(viewFlipper.getMeasuredWidth(),viewFlipper.getMeasuredHeight())
+
+                .into(imageView);
+
+        viewFlipper.addView(imageView);
+
+        viewFlipper.setFlipInterval(2500);
+        viewFlipper.setAutoStart(true);
+
+        viewFlipper.startFlipping();
+        viewFlipper.setInAnimation(this, android.R.anim.slide_in_left);
+        viewFlipper.setOutAnimation(this, android.R.anim.slide_out_right);
+
+    }
+
 //    private void requestPermission(){
 //        isReadPermissiongranted=ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED;
 //        isCallPermissionGranted=ContextCompat.checkSelfPermission(this,Manifest.permission.CALL_PHONE)==PackageManager.PERMISSION_GRANTED;
@@ -496,5 +651,49 @@ public class RadioStream extends AppCompatActivity implements NavigationView.OnN
 
         backPressedTime = System.currentTimeMillis();
     }
+   //dialog box
+    private InstallStateUpdatedListener installStateUpdatedListener = new InstallStateUpdatedListener() {
+       @Override
+       public void onStateUpdate(InstallState state) {
+           if(state.installStatus() == InstallStatus.DOWNLOADING){
+               showCompleteUpdate();
+           }
+
+       }
+   };
+
+    private void showCompleteUpdate() {
+        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),"New app is ready!",Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction("Install", new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mupdatemanager.completeUpdate();
+
+            }
+        });
+        snackbar.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode == RC_APP_UPDATE && resultCode != RESULT_OK){
+            Toast.makeText(this, "Update Cancelled", Toast.LENGTH_SHORT).show();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        usingFirebaseDatabase();
+    }
+
+    @Override
+    protected void onStop() {
+//        if(mupdatemanager !=null) mupdatemanager.unregisterListener(installStateUpdatedListener);
+        super.onStop();
+    }
+
+
 }
 
